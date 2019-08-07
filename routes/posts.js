@@ -12,16 +12,32 @@ this request will be for index/posts/numberone
 
 router.get('/', (req, res) => {
   res.send('We are on posts!');
-});
+})
 
 
 router.post('/', (req, res) => {
   const post = new Post({
     title: req.body.title, 
     description: req.body.description
-  });
+  })
+
 
   post.save()
+        .then((data) => {
+            console.log(data)
+            // res.json(data)
+            res.send(data)
+        })
+        .catch((err) => {
+            res.json({ message: err })
+        })
+    // res.status(200).send('Request success')
+})
+
+module.exports = router;
+
+
+  /* post.save()
   .then(data => {
     res.json(data);
   })
@@ -33,4 +49,4 @@ router.post('/', (req, res) => {
 
 
 
-module.exports = router;
+module.exports = router; */
